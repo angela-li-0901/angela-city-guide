@@ -1,0 +1,145 @@
+[
+  {
+    "id": "bay-1",
+    "name": "Tartine Bakery",
+    "category": "food",
+    "subcategory": "coffee-shop",
+    "neighborhood": "Mission District",
+    "address": "600 Guerrero St, San Francisco, CA 94110",
+    "coords": {
+      "lat": 37.7614,
+      "lng": -122.4241
+    },
+    "review": "The morning bun is life-changing. Get there early or prepare to wait. The bread program is worth the hype and everything they make with it is incredible.",
+    "photo": "",
+    "mustTry": true,
+    "cuisines": [
+      "Bakery",
+      "Brunch/Breakfast"
+    ],
+    "ratings": {
+      "budgetToSplurge": 3,
+      "quickToSitDown": 2,
+      "popularToHiddenGem": 3
+    }
+  },
+  {
+    "id": "bay-2",
+    "name": "Mensho Tokyo",
+    "category": "food",
+    "subcategory": "restaurant",
+    "neighborhood": "SoMa",
+    "address": "672 Geary St, San Francisco, CA 94102",
+    "coords": {
+      "lat": 37.7864,
+      "lng": -122.4137
+    },
+    "review": "The tori paitan ramen is silky and rich. This is the closest I've found to actual Tokyo ramen outside of Japan. Small space, big flavors.",
+    "photo": "",
+    "mustTry": true,
+    "cuisines": [
+      "Japanese"
+    ],
+    "ratings": {
+      "budgetToSplurge": 2,
+      "quickToSitDown": 3,
+      "popularToHiddenGem": 3
+    }
+  },
+  {
+    "id": "bay-3",
+    "name": "Dumpling Home",
+    "category": "food",
+    "subcategory": "restaurant",
+    "neighborhood": "Hayes Valley",
+    "address": "335 Linden St, San Francisco, CA 94102",
+    "coords": {
+      "lat": 37.7763,
+      "lng": -122.423
+    },
+    "review": "Soup dumplings that rival the best I've had. Tiny spot with huge flavor. The truffle xiao long bao is an indulgent twist on the classic.",
+    "photo": "",
+    "mustTry": false,
+    "cuisines": [
+      "Chinese"
+    ],
+    "ratings": {
+      "budgetToSplurge": 2,
+      "quickToSitDown": 3,
+      "popularToHiddenGem": 3
+    }
+  },
+  {
+    "id": "bay-4",
+    "name": "Lands End Trail",
+    "category": "places",
+    "subcategory": "nature",
+    "neighborhood": "Outer Richmond",
+    "address": "680 Point Lobos Ave, San Francisco, CA 94121",
+    "coords": {
+      "lat": 37.7879,
+      "lng": -122.5113
+    },
+    "review": "My favorite urban hike. Views of the Golden Gate, the Sutro Baths ruins, and on a clear day you can see forever. Go at sunset.",
+    "photo": "",
+    "mustTry": true,
+    "ratings": {
+      "chillToActive": 3,
+      "indoorsToOutdoors": 4,
+      "touristyToSecret": 3,
+      "soloToGroup": 3
+    },
+    "activityTags": [
+      "Hiking",
+      "Viewpoint",
+      "Beach"
+    ]
+  },
+  {
+    "id": "bay-5",
+    "name": "Bi-Rite Creamery",
+    "category": "food",
+    "subcategory": "dessert",
+    "neighborhood": "Mission District",
+    "address": "3692 18th St, San Francisco, CA 94110",
+    "coords": {
+      "lat": 37.7618,
+      "lng": -122.4256
+    },
+    "review": "Salted caramel ice cream that started a movement. Grab a scoop and eat it in Dolores Park across the street. That's peak SF right there.",
+    "photo": "",
+    "mustTry": true,
+    "cuisines": [
+      "Ice Cream/Desserts"
+    ],
+    "ratings": {
+      "budgetToSplurge": 2,
+      "quickToSitDown": 1,
+      "popularToHiddenGem": 2
+    }
+  },
+  {
+    "id": "bay-6",
+    "name": "SF MOMA",
+    "category": "places",
+    "subcategory": "city",
+    "neighborhood": "SoMa",
+    "address": "151 3rd St, San Francisco, CA 94103",
+    "coords": {
+      "lat": 37.7857,
+      "lng": -122.4011
+    },
+    "review": "The building itself is art. The photography floors are always strong. Don't skip the living wall on the third floor terrace.",
+    "photo": "",
+    "mustTry": false,
+    "ratings": {
+      "chillToActive": 2,
+      "indoorsToOutdoors": 1,
+      "touristyToSecret": 2,
+      "soloToGroup": 2
+    },
+    "activityTags": [
+      "Culture/Museum"
+    ]
+  }
+]
