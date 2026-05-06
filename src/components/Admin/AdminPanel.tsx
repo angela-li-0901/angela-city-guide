@@ -7,7 +7,6 @@ import type {
   ActivityTag,
   FoodRatings,
   PlacesRatings,
-  PhotoPosition,
   PhotoItem,
 } from '../../data/types';
 import {
