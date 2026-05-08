@@ -1279,12 +1279,12 @@
   },
   {
     "id": "entry-1777946765394-juyv2",
-    "name": "Commonwealth Avenue",
-    "neighborhood": "Boston",
-    "address": "Commonwealth Ave, Boston, MA, USA",
+    "name": "Commonwealth Avenue Mall",
+    "neighborhood": "Back Bay",
+    "address": "484 Commonwealth Ave, Boston, MA 02116, USA",
     "coords": {
-      "lat": 42.3514596,
-      "lng": -71.1194616
+      "lat": 42.35076309999999,
+      "lng": -71.083044
     },
     "review": "",
     "photo": "/photos/entry-1777946765394-juyv2-0.jpg",
@@ -1889,12 +1889,12 @@
   },
   {
     "id": "entry-1777953784746-06and",
-    "name": "Doctor Paul Dudley White Bike Path",
-    "neighborhood": "Brighton",
-    "address": "Dr Paul Dudley White Bike Path, Boston, MA, USA",
+    "name": "Skyline Boston",
+    "neighborhood": "Area 2/MIT",
+    "address": "88 Memorial Dr, Cambridge, MA 02142, USA",
     "coords": {
-      "lat": 42.3602041,
-      "lng": -71.1521856
+      "lat": 42.3590516,
+      "lng": -71.08635919999999
     },
     "review": "",
     "photo": "/photos/entry-1777953784746-06and-0.jpg",

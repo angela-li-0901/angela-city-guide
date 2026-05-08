@@ -53,9 +53,21 @@ export default function CoverPage({ cityConfig, entryCount }: CoverPageProps) {
         </p>
 
         {/* Stats */}
-        <p className="font-body text-sm text-sepia/60">
+        <p className="font-body text-sm text-sepia/60 mb-4">
           {entryCount} curated {entryCount === 1 ? 'recommendation' : 'recommendations'}
         </p>
+
+        {/* Save all to Google Maps */}
+        {cityConfig.googleMapsListUrl && (
+          <a
+            href={cityConfig.googleMapsListUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-sm font-mono text-xs uppercase tracking-wider bg-terracotta text-paper hover:bg-coffee transition-colors shadow-soft"
+          >
+            <span className="text-base">&#9737;</span> Save all places to Google Maps
+          </a>
+        )}
 
         {/* Bottom decorative line */}
         <div className="flex items-center justify-center gap-4 mt-6">

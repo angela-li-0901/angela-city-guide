@@ -5,6 +5,7 @@ export interface CityConfig {
   slug: string;
   center: { lat: number; lng: number };
   zoom: number;
+  googleMapsListUrl?: string;
 }
 
 // Subcategory types

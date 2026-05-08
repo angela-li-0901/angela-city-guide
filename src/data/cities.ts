@@ -7,6 +7,7 @@ export const CITIES: CityConfig[] = [
     slug: 'boston',
     center: { lat: 42.3601, lng: -71.0589 },
     zoom: 13,
+    googleMapsListUrl: 'https://maps.app.goo.gl/FvYEn5Je6fw57YdN8',
   },
   {
     name: 'Bay Area',
