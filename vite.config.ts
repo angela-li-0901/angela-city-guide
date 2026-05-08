@@ -60,6 +60,29 @@ function devApiMiddleware(): { name: string; configureServer: (server: any) => v
           }
         })
       })
+
+      // Save itineraries to JSON file
+      server.middlewares.use('/api/save-itineraries', (req: Connect.IncomingMessage, res: any) => {
+        if (req.method !== 'POST') {
+          res.statusCode = 405
+          res.end('Method not allowed')
+          return
+        }
+        let body = ''
+        req.on('data', (chunk: string) => { body += chunk })
+        req.on('end', () => {
+          try {
+            const { citySlug, itineraries } = JSON.parse(body)
+            const filePath = path.resolve(__dirname, `src/data/${citySlug}-itineraries.json`)
+            fs.writeFileSync(filePath, JSON.stringify(itineraries, null, 2))
+            res.setHeader('Content-Type', 'application/json')
+            res.end(JSON.stringify({ ok: true }))
+          } catch (err) {
+            res.statusCode = 500
+            res.end(JSON.stringify({ error: String(err) }))
+          }
+        })
+      })
     },
   }
 }

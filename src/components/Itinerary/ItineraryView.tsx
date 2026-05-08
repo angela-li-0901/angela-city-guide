@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import type { Itinerary, GuideEntry } from '../../data/types';
 
 interface ItineraryViewProps {

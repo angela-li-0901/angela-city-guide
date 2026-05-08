@@ -14,7 +14,9 @@ import AdminToolbar from '../Admin/AdminToolbar';
 import Header from './Header';
 import CoverPage from '../Cover/CoverPage';
 import ItineraryView from '../Itinerary/ItineraryView';
-import { ITINERARIES } from '../../data/itineraries';
+import ItineraryEditor from '../Itinerary/ItineraryEditor';
+import { loadItineraries, saveItineraries } from '../../data/itineraries';
+import type { Itinerary } from '../../data/types';
 
 export default function CityPage() {
   const { city: citySlug } = useParams<{ city: string }>();
@@ -28,10 +30,15 @@ export default function CityPage() {
     citySlug ? loadEntries(citySlug) : []
   );
 
+  const [itineraries, setItineraries] = useState<Itinerary[]>(() =>
+    citySlug ? loadItineraries(citySlug) : []
+  );
+
   // Reload entries when city changes
   useEffect(() => {
     if (citySlug) {
       setEntries(loadEntries(citySlug));
+      setItineraries(loadItineraries(citySlug));
       setActiveTab('places');
       setSubcategory(null);
       setCuisines([]);
@@ -43,6 +50,7 @@ export default function CityPage() {
 
   // Admin state
   const [editingEntry, setEditingEntry] = useState<GuideEntry | null | 'new'>(null);
+  const [editingItinerary, setEditingItinerary] = useState<{ index: number; itinerary: Itinerary } | 'new' | null>(null);
 
   // Hover state for card-map interaction
   const [hoveredId, setHoveredId] = useState<string | null>(null);
@@ -210,6 +218,35 @@ export default function CityPage() {
     setHoveredId(entry?.id ?? null);
   }, []);
 
+  const handleSaveItinerary = useCallback(
+    (itinerary: Itinerary) => {
+      setItineraries((prev) => {
+        let updated: Itinerary[];
+        if (editingItinerary && editingItinerary !== 'new') {
+          updated = prev.map((it, i) => (i === editingItinerary.index ? itinerary : it));
+        } else {
+          updated = [...prev, itinerary];
+        }
+        if (citySlug) saveItineraries(citySlug, updated);
+        return updated;
+      });
+      setEditingItinerary(null);
+    },
+    [citySlug, editingItinerary]
+  );
+
+  const handleDeleteItinerary = useCallback(
+    (index: number) => {
+      setItineraries((prev) => {
+        const updated = prev.filter((_, i) => i !== index);
+        if (citySlug) saveItineraries(citySlug, updated);
+        return updated;
+      });
+      setEditingItinerary(null);
+    },
+    [citySlug]
+  );
+
   if (!cityConfig) {
     return <Navigate to="/" replace />;
   }
@@ -230,7 +267,7 @@ export default function CityPage() {
         <CategoryTabs
           activeTab={activeTab}
           onTabChange={handleTabChange}
-          showItineraries={(ITINERARIES[citySlug!] ?? []).length > 0}
+          showItineraries={itineraries.length > 0 || isAdmin}
         />
         {activeTab !== 'itineraries' && (
           <FilterBar
@@ -257,21 +294,50 @@ export default function CityPage() {
         <div className="pb-16">
           <div className="flex flex-col lg:flex-row">
             <div className="lg:w-[60%] lg:max-h-[calc(100vh-80px)] lg:overflow-y-auto px-4 sm:px-6 py-4">
-              {(ITINERARIES[citySlug!] ?? []).map((itinerary, idx) => (
-                <ItineraryView
-                  key={idx}
-                  itinerary={itinerary}
-                  entries={entries}
-                  onStopHover={handleCardHover}
-                />
+              {itineraries.length === 0 && (
+                <div className="text-center py-12">
+                  <p className="font-display text-3xl text-sepia/30 mb-2">No itineraries yet</p>
+                  {isAdmin && (
+                    <button
+                      onClick={() => setEditingItinerary('new')}
+                      className="mt-4 px-5 py-2 rounded-sm font-mono text-xs uppercase tracking-wider bg-terracotta text-paper hover:bg-coffee transition-colors"
+                    >
+                      Create your first itinerary
+                    </button>
+                  )}
+                </div>
+              )}
+              {itineraries.map((itinerary, idx) => (
+                <div key={idx} className="mb-8">
+                  <ItineraryView
+                    itinerary={itinerary}
+                    entries={entries}
+                    onStopHover={handleCardHover}
+                  />
+                  {isAdmin && (
+                    <button
+                      onClick={() => setEditingItinerary({ index: idx, itinerary })}
+                      className="mt-3 font-mono text-xs text-terracotta hover:text-coffee uppercase tracking-wider underline underline-offset-2"
+                    >
+                      Edit this itinerary
+                    </button>
+                  )}
+                </div>
               ))}
+              {isAdmin && itineraries.length > 0 && (
+                <button
+                  onClick={() => setEditingItinerary('new')}
+                  className="mt-4 px-5 py-2 rounded-sm font-mono text-xs uppercase tracking-wider bg-ink/10 text-ink hover:bg-ink/20 transition-colors"
+                >
+                  + Add another itinerary
+                </button>
+              )}
             </div>
             <div className="lg:w-[40%] lg:sticky lg:top-0 lg:self-start lg:h-[calc(100vh-80px)] px-4 lg:px-0 lg:pr-0 py-4 lg:py-0">
               <MapView
                 cityConfig={cityConfig}
                 entries={
-                  // Show only the itinerary stops on the map
-                  (ITINERARIES[citySlug!] ?? [])
+                  itineraries
                     .flatMap((it) => it.days.flatMap((d) => d.stops))
                     .map((stop) => entries.find((e) => e.id === stop.entryId))
                     .filter((e): e is GuideEntry => !!e)
@@ -324,6 +390,20 @@ export default function CityPage() {
           onSave={handleSaveEntry}
           onDelete={handleDeleteEntry}
           onClose={() => setEditingEntry(null)}
+        />
+      )}
+
+      {isAdmin && editingItinerary !== null && (
+        <ItineraryEditor
+          itinerary={editingItinerary === 'new' ? null : editingItinerary.itinerary}
+          entries={entries}
+          onSave={handleSaveItinerary}
+          onDelete={
+            editingItinerary !== 'new'
+              ? () => handleDeleteItinerary(editingItinerary.index)
+              : undefined
+          }
+          onClose={() => setEditingItinerary(null)}
         />
       )}
     </div>

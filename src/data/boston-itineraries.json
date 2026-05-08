@@ -1,0 +1,66 @@
+[
+  {
+    "name": "Two Days in Boston",
+    "description": "Two days hitting the highlights -- iconic food, beautiful walks, and the best views.",
+    "days": [
+      {
+        "title": "Day 1: The classics",
+        "stops": [
+          {
+            "entryId": "boston-2",
+            "note": "Start with coffee and a pastry"
+          },
+          {
+            "entryId": "entry-1778089520301-n580e",
+            "note": "Walk the Freedom Trail through downtown"
+          },
+          {
+            "entryId": "boston-6",
+            "note": "Cannoli stop in the North End"
+          },
+          {
+            "entryId": "boston-1",
+            "note": "Lunch -- get the hot buttered lobster roll"
+          },
+          {
+            "entryId": "boston-4",
+            "note": "Afternoon stroll through the Public Garden"
+          },
+          {
+            "entryId": "entry-1777931606238-nbaos",
+            "note": "Walk through Boston Common"
+          },
+          {
+            "entryId": "entry-1777942067775-flpu7",
+            "note": "Sunset views from View Boston"
+          },
+          {
+            "entryId": "entry-1777953609237-20i17",
+            "note": "Dinner - incredible Thai food"
+          }
+        ]
+      },
+      {
+        "title": "Day 2: Culture and hidden gems",
+        "stops": [
+          {
+            "entryId": "entry-1777942994823-7e1gk",
+            "note": "Breakfast at the best bagel shop in Boston"
+          },
+          {
+            "entryId": "entry-1777954419833-f9ps3",
+            "note": "Walk around Harvard"
+          },
+          {
+            "entryId": "entry-1777954400849-timz8",
+            "note": "Walk around MIT and Charles River"
+          },
+          {
+            "entryId": "boston-5",
+            "note": "Afternoon at the Gardner Museum"
+          }
+        ]
+      }
+    ]
+  }
+]
