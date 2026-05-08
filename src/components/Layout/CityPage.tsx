@@ -13,6 +13,8 @@ import AdminPanel from '../Admin/AdminPanel';
 import AdminToolbar from '../Admin/AdminToolbar';
 import Header from './Header';
 import CoverPage from '../Cover/CoverPage';
+import ItineraryView from '../Itinerary/ItineraryView';
+import { ITINERARIES } from '../../data/itineraries';
 
 export default function CityPage() {
   const { city: citySlug } = useParams<{ city: string }>();
@@ -46,7 +48,7 @@ export default function CityPage() {
   const [hoveredId, setHoveredId] = useState<string | null>(null);
 
   // Filter state
-  const [activeTab, setActiveTab] = useState<'food' | 'places'>('places');
+  const [activeTab, setActiveTab] = useState<'food' | 'places' | 'itineraries'>('places');
   const [subcategory, setSubcategory] = useState<string | null>(null);
   const [cuisines, setCuisines] = useState<Cuisine[]>([]);
   const [prices, setPrices] = useState<number[]>([]);
@@ -58,7 +60,7 @@ export default function CityPage() {
     setVisibleOnMap(visibleIds);
   }, []);
 
-  const handleTabChange = useCallback((tab: 'food' | 'places') => {
+  const handleTabChange = useCallback((tab: 'food' | 'places' | 'itineraries') => {
     setActiveTab(tab);
     setSubcategory(null);
     setCuisines([]);
@@ -225,49 +227,85 @@ export default function CityPage() {
 
       {/* Controls area */}
       <div className="px-4 sm:px-6 pt-6 pb-4 space-y-4">
-        <CategoryTabs activeTab={activeTab} onTabChange={handleTabChange} />
-        <FilterBar
-          category={activeTab}
-          subcategory={subcategory}
-          onSubcategoryChange={setSubcategory}
-          cuisines={cuisines}
-          onCuisinesChange={setCuisines}
-          prices={prices}
-          onPricesChange={setPrices}
-          activityTags={activityTags}
-          onActivityTagsChange={setActivityTags}
-          mustTry={mustTry}
-          onMustTryChange={setMustTry}
-          hasActiveFilters={hasActiveFilters}
-          onClearFilters={clearFilters}
+        <CategoryTabs
+          activeTab={activeTab}
+          onTabChange={handleTabChange}
+          showItineraries={(ITINERARIES[citySlug!] ?? []).length > 0}
         />
+        {activeTab !== 'itineraries' && (
+          <FilterBar
+            category={activeTab as 'food' | 'places'}
+            subcategory={subcategory}
+            onSubcategoryChange={setSubcategory}
+            cuisines={cuisines}
+            onCuisinesChange={setCuisines}
+            prices={prices}
+            onPricesChange={setPrices}
+            activityTags={activityTags}
+            onActivityTagsChange={setActivityTags}
+            mustTry={mustTry}
+            onMustTryChange={setMustTry}
+            hasActiveFilters={hasActiveFilters}
+            onClearFilters={clearFilters}
+          />
+        )}
       </div>
 
-      {/* Split view: Cards + Map (full width like Airbnb) */}
-      <div className="pb-16">
-        <div className="flex flex-col lg:flex-row">
-          {/* Cards panel (scrollable, ~60% width) */}
-          <div className="lg:w-[60%] lg:max-h-[calc(100vh-80px)] lg:overflow-y-auto px-4 sm:px-6 py-4">
-            <CardGrid
-              entries={visibleEntries}
-              onCardClick={handleCardClick}
-              onCardHover={handleCardHover}
-              highlightedId={hoveredId}
-            />
-          </div>
-
-          {/* Map panel (sticky, ~40% width, flush to right edge) */}
-          <div className="lg:w-[40%] lg:sticky lg:top-0 lg:self-start lg:h-[calc(100vh-80px)] px-4 lg:px-0 lg:pr-0 py-4 lg:py-0">
-            <MapView
-              cityConfig={cityConfig}
-              entries={filteredEntries}
-              highlightedId={hoveredId}
-              className="h-[400px] lg:h-full lg:rounded-none"
-              onVisibleEntriesChange={handleVisibleEntriesChange}
-            />
+      {/* Content area */}
+      {activeTab === 'itineraries' ? (
+        /* Itinerary view */
+        <div className="pb-16">
+          <div className="flex flex-col lg:flex-row">
+            <div className="lg:w-[60%] lg:max-h-[calc(100vh-80px)] lg:overflow-y-auto px-4 sm:px-6 py-4">
+              {(ITINERARIES[citySlug!] ?? []).map((itinerary, idx) => (
+                <ItineraryView
+                  key={idx}
+                  itinerary={itinerary}
+                  entries={entries}
+                  onStopHover={handleCardHover}
+                />
+              ))}
+            </div>
+            <div className="lg:w-[40%] lg:sticky lg:top-0 lg:self-start lg:h-[calc(100vh-80px)] px-4 lg:px-0 lg:pr-0 py-4 lg:py-0">
+              <MapView
+                cityConfig={cityConfig}
+                entries={
+                  // Show only the itinerary stops on the map
+                  (ITINERARIES[citySlug!] ?? [])
+                    .flatMap((it) => it.days.flatMap((d) => d.stops))
+                    .map((stop) => entries.find((e) => e.id === stop.entryId))
+                    .filter((e): e is GuideEntry => !!e)
+                }
+                highlightedId={hoveredId}
+                className="h-[400px] lg:h-full lg:rounded-none"
+              />
+            </div>
           </div>
         </div>
-      </div>
+      ) : (
+        /* Split view: Cards + Map */
+        <div className="pb-16">
+          <div className="flex flex-col lg:flex-row">
+            <div className="lg:w-[60%] lg:max-h-[calc(100vh-80px)] lg:overflow-y-auto px-4 sm:px-6 py-4">
+              <CardGrid
+                entries={visibleEntries}
+                onCardClick={handleCardClick}
+                onCardHover={handleCardHover}
+                highlightedId={hoveredId}
+              />
+            </div>
+            <div className="lg:w-[40%] lg:sticky lg:top-0 lg:self-start lg:h-[calc(100vh-80px)] px-4 lg:px-0 lg:pr-0 py-4 lg:py-0">
+              <MapView
+                cityConfig={cityConfig}
+                entries={filteredEntries}
+                highlightedId={hoveredId}
+                className="h-[400px] lg:h-full lg:rounded-none"
+                onVisibleEntriesChange={handleVisibleEntriesChange}
+              />
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Admin UI (dev only) */}
       {isAdmin && (

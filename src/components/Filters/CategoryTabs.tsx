@@ -1,13 +1,18 @@
 interface CategoryTabsProps {
-  activeTab: 'food' | 'places';
-  onTabChange: (tab: 'food' | 'places') => void;
+  activeTab: 'places' | 'food' | 'itineraries';
+  onTabChange: (tab: 'places' | 'food' | 'itineraries') => void;
+  showItineraries?: boolean;
 }
 
-export default function CategoryTabs({ activeTab, onTabChange }: CategoryTabsProps) {
-  const tabs = [
-    { key: 'places' as const, label: 'Places' },
-    { key: 'food' as const, label: 'Food' },
+export default function CategoryTabs({ activeTab, onTabChange, showItineraries }: CategoryTabsProps) {
+  const tabs: { key: 'places' | 'food' | 'itineraries'; label: string }[] = [
+    { key: 'places', label: 'Places' },
+    { key: 'food', label: 'Food' },
   ];
+
+  if (showItineraries) {
+    tabs.push({ key: 'itineraries', label: 'Itineraries' });
+  }
 
   return (
     <div className="flex justify-center gap-1 bg-ink/5 rounded-full p-1 w-fit mx-auto">

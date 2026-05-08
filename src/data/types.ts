@@ -8,6 +8,23 @@ export interface CityConfig {
   googleMapsListUrl?: string;
 }
 
+// Itinerary types
+export interface ItineraryStop {
+  entryId: string; // references a GuideEntry id
+  note?: string; // optional tip like "go early" or "best at sunset"
+}
+
+export interface ItineraryDay {
+  title: string; // e.g. "Day 1: The classics"
+  stops: ItineraryStop[];
+}
+
+export interface Itinerary {
+  name: string; // e.g. "Weekend in Boston"
+  description: string;
+  days: ItineraryDay[];
+}
+
 // Subcategory types
 export type FoodSubcategory = 'restaurant' | 'coffee-shop' | 'bar' | 'dessert';
 export type PlacesSubcategory = 'city' | 'nature' | 'day-trip';
