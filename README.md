@@ -4,10 +4,10 @@ A curated collection of my favorite restaurants, coffee shops, and places to exp
 
 **Live site:** [angela-city-guide.vercel.app](https://angela-city-guide.vercel.app)
 
-![Cover page](docs/screenshots/01-cover.png)
-![Places with map](docs/screenshots/02-places.png)
-![Food cards](docs/screenshots/03-food.png)
-![Itineraries](docs/screenshots/04-itineraries.png)
+![Cover page](docs/screenshots/01-cover.jpg)
+![Places with map](docs/screenshots/02-places.jpg)
+![Food cards](docs/screenshots/03-food.jpg)
+![Itineraries](docs/screenshots/04-itineraries.jpg)
 
 ---
 
