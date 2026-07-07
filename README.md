@@ -1,73 +1,37 @@
-# React + TypeScript + Vite
+# Angela's Very Personal City Guide
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A curated collection of my favorite restaurants, coffee shops, and places to explore in the cities I've called home — Boston and the Bay Area.
 
-Currently, two official plugins are available:
+**Live site:** [angela-city-guide.vercel.app](https://angela-city-guide.vercel.app)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Why I built this
 
-## React Compiler
+Friends kept asking me for recommendations every time they visited Boston or SF, and my answers were scattered across text threads and half-remembered Yelp bookmarks (9-year Yelp Elite here). So I turned them into a real product — designed, built, and shipped end-to-end with [Claude Code](https://claude.com/claude-code), going from idea to deployed site without writing the boilerplate myself.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Features
 
-## Expanding the ESLint configuration
+- Curated picks across restaurants, coffee shops, and things to do, organized by city (Boston and the Bay Area)
+- Personal notes on what to order and when to go — not just a list of names
+- Filter by category, cuisine, price, and activity tags, or switch between list and map views
+- Sample itineraries for each city, with a save-all-places-to-Google-Maps shortcut
+- Guestbook for visitors to leave notes
+- Fully responsive, deployed on Vercel
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Tech stack
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- **Frontend:** React + TypeScript, React Router
+- **Styling:** Tailwind CSS
+- **Data & backend:** Firebase
+- **Maps:** Google Maps
+- **Build:** Vite
+- **Deployment:** Vercel
+- **Built with:** Claude Code
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Running locally
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Then open http://localhost:5173.
